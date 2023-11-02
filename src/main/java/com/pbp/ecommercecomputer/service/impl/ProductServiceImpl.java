@@ -28,9 +28,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> findAll() {
         List<Product> products = productRepository.findAll();
 
-        List<ProductDto> productDtos = mapProductToDto(products);
-
-        return productDtos;
+        return mapProductToDto(products);
     }
 
     @Override
@@ -55,9 +53,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             List<Product> products = productRepository.findByCategory_Name(name);
 
-            List<ProductDto> productDtos = mapProductToDto(products);
-
-            return productDtos;
+            return mapProductToDto(products);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,9 +66,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             List<Product> products = productRepository.findByNameContaining(name);
 
-            List<ProductDto> productDtos = mapProductToDto(products);
-
-            return productDtos;
+            return mapProductToDto(products);
         } catch (Exception e) {
             e.printStackTrace();
         }
