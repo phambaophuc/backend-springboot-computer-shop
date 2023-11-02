@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findByCategory_Name(@Param("name") String name);
+
+    List<Product> findByNameContaining(@Param("name") String name);
 }

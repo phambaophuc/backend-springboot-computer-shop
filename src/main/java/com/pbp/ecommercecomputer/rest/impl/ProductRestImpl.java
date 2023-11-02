@@ -7,10 +7,9 @@ import com.pbp.ecommercecomputer.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,20 +20,39 @@ public class ProductRestImpl implements ProductRest {
 
     @Override
     public ResponseEntity<List<ProductDto>> findAll() {
-        List<ProductDto> productDtos = productService.findAll();
+        try {
+            List<ProductDto> productDtos = productService.findAll();
 
-        return ResponseEntity.ok(productDtos);
+            return ResponseEntity.ok(productDtos);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
-    public ResponseEntity<List<ProductDto>> findByCategoryName(@PathVariable("name") String name) {
-        List<ProductDto> productDtos = productService.findByCategoryName(name);
+    public ResponseEntity<List<ProductDto>> findByCategoryName(String name) {
+        try {
+            List<ProductDto> productDtos = productService.findByCategoryName(name);
 
-        return ResponseEntity.ok(productDtos);
+            return ResponseEntity.ok(productDtos);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<List<ProductDto>> findByProductName(String name) {
+        try {
+            List<ProductDto> productDtos = productService.findByProductName(name);
+
+            return ResponseEntity.ok(productDtos);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> createProduct(ProductRequest productRequest) {
         try {
             productService.save(productRequest);
 

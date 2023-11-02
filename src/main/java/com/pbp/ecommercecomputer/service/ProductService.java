@@ -12,4 +12,6 @@ public interface ProductService {
     void save(ProductRequest productRequest);
 
     List<ProductDto> findByCategoryName(String name);
+
+    List<ProductDto> findByProductName(String name);
 }

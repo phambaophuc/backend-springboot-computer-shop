@@ -14,8 +14,11 @@ public interface ProductRest {
     @GetMapping
     ResponseEntity<List<ProductDto>> findAll();
 
-    @GetMapping("/find-by-category/{name}")
+    @GetMapping("/category/{name}")
     ResponseEntity<List<ProductDto>> findByCategoryName(@PathVariable("name") String name);
+
+    @GetMapping("/search")
+    ResponseEntity<List<ProductDto>> findByProductName(@RequestParam("name") String name);
 
     @PostMapping("/create")
     ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest);

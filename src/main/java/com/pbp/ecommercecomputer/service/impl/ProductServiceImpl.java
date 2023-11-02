@@ -26,12 +26,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findAll() {
-        List<Product> product = productRepository.findAll();
-        List<ProductDto> productDtos = new ArrayList<ProductDto>();
+        List<Product> products = productRepository.findAll();
 
-        product.forEach(p ->
-                productDtos.add(ProductMapper.toDto(p))
-        );
+        List<ProductDto> productDtos = mapProductToDto(products);
 
         return productDtos;
     }
@@ -57,11 +54,8 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> findByCategoryName(String name) {
         try {
             List<Product> products = productRepository.findByCategory_Name(name);
-            List<ProductDto> productDtos = new ArrayList<>();
 
-            products.forEach(p ->
-                    productDtos.add(ProductMapper.toDto(p))
-            );
+            List<ProductDto> productDtos = mapProductToDto(products);
 
             return productDtos;
         } catch (Exception e) {
@@ -69,6 +63,31 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<ProductDto> findByProductName(String name) {
+        try {
+            List<Product> products = productRepository.findByNameContaining(name);
+
+            List<ProductDto> productDtos = mapProductToDto(products);
+
+            return productDtos;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private List<ProductDto> mapProductToDto(List<Product> products) {
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        products.forEach(p ->
+                productDtos.add(ProductMapper.toDto(p))
+        );
+
+        return productDtos;
     }
 
 }
